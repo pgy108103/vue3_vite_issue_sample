@@ -1,0 +1,18 @@
+{
+	"name": "vue3_vite_issue_sample",
+	"version": "0.0.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build"
+	},
+	"dependencies": {
+		"vue": "^3.0.4"
+	},
+	"devDependencies": {
+		"@vue/compiler-sfc": "^3.0.4",
+		"typescript": "^4.1.3",
+		"vite": "^1.0.0-rc.13",
+		"sass": "^1.29.0",
+		"sass-loader": "^10.1.0"
+	}
+}
