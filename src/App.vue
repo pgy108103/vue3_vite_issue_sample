@@ -1,42 +1,54 @@
 <template>
   <div>
-    <!-- for transition & :slotted() sample -->
-    <todo v-if="isTransitionBug">
-      <template #temp>
-        <div class="header">header</div>
-      </template>
-      <template #default>
-        <div class="content">content</div>
-      </template>
-    </todo>
-    <!-- 
-      for config.alias & :slotted() sample => please set isTransitionBug =  false
-      when use global component witch defineAsyncComponent in main.ts,
-      :slotted() is not working
-    -->
-    <todo1 v-else>
-      <template #temp>
-        <div class="header">header</div>
-      </template>
-      <template #default>
-        <div class="content">content</div>
-      </template>
-    </todo1>
+    <button @click="text = text === text1 ? text2 : text1;">click</button>
+    <div>{{ flag }} {{ text }}</div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-// import todo1 from './component/todo1.vue';
+<!-- not right -->
+<script lang="ts" setup>
+import { watch, computed } from 'vue';
 
-export default defineComponent({
-  components: {
-    // todo1,
-  },
-  data() {
-    return {
-      isTransitionBug: true
-    }
-  }
-})
+const text1 = 'AAA';
+const text2 = 'BBB';
+
+ref: text = text1;
+
+ref: flag = computed(() => !!text);
+
+watch([$flag], (now, old) => {
+  console.log(0, now, old);
+});
+watch($flag, (now, old) => {
+  console.log(1, now, old);
+});
+</script>
+
+<!-- is right -->
+<script lang="ts">
+// import { ref, watch, computed, defineComponent } from 'vue';
+
+// export default defineComponent({
+//   setup() {
+//     const text1 = 'AAA';
+//     const text2 = 'BBB';
+
+//     const text = ref(text1);
+//     const flag = computed(() => !!text);
+
+//     watch([flag], (now, old) => {
+//       console.log(0, now, old);
+//     })
+//     watch(flag, (now, old) => {
+//       console.log(1, now, old);
+//     })
+
+//     return {
+//       text1,
+//       text2,
+//       text,
+//       flag
+//     };
+//   }
+// });
 </script>
